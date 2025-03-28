@@ -1,19 +1,11 @@
 package com.dndats.transaction_api.data;
 
-import com.dndats.transaction_api.model.Transaction;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+@Component
+public interface TransactionRepository<T> {
 
-@Repository
-public class TransactionRepository implements CustomRepository<Transaction> {
-
-    private final List<Transaction> transactions = new ArrayList<>();
-
-    @Override
-    public Transaction save(Transaction entity) {
-        return null;
-    }
+    void save(T entity);
+    boolean deleteAll();
 
 }

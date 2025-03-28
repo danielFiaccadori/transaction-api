@@ -12,4 +12,12 @@ public class Transaction {
         this.timestamp = timestamp;
     }
 
+    public Double getValue() {
+        return value;
+    }
+
+    public OffsetDateTime getTimestamp() {
+        return timestamp;
+    }
+
 }

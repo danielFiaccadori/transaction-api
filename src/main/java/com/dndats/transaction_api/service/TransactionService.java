@@ -4,10 +4,12 @@ import com.dndats.transaction_api.data.TransactionRepository;
 import com.dndats.transaction_api.dto.TransactionRequestDTO;
 import com.dndats.transaction_api.exceptions.UnprocessableEntity;
 import com.dndats.transaction_api.mapper.TransactionMapper;
+import com.dndats.transaction_api.model.Transaction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -22,7 +24,7 @@ public class TransactionService {
     }
 
     public void addTransaction(TransactionRequestDTO dto) {
-        log.info("Processing transaction...");
+//        log.info("Processing transaction...");
         if (dto.value() == null || dto.timestamp() == null) {
             throw new UnprocessableEntity("Value must be provided");
         }
@@ -34,12 +36,17 @@ public class TransactionService {
         }
 
         repository.save(mapper.toTransactionFromDto(dto));
-        log.info("Transaction processed successfully");
+//        log.info("Transaction processed successfully");
     }
 
     public void deleteAllTransactions() {
         repository.deleteAll();
-        log.info("All transactions deleted");
+//        log.info("All transactions deleted");
+    }
+
+    public List<TransactionRequestDTO> findAllTransactions(Integer searchInterval) {
+        List<Transaction> transactions = repository.findAll(searchInterval);
+        return mapper.toTransactionRequestDTOList(transactions);
     }
 
 }
